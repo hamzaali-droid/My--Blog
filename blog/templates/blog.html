@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} Blog {% endblock title %}
+
+{% block css %}
+{% endblock css %}
+
+{% block body %}
+<section class="min-h-[100vh] pt-12 relative md:pt-20 pb-16 px-2 lg:px-12 xl:px-28 grid md:grid-cols-1 lg:grid-cols-2" id="blog-posts"> </section>
+{% endblock body %}
+
+{% block js %}
+{% load static %}
+<script src="{% static 'Javascript/blog.js' %}"></script>
+{% endblock js %}

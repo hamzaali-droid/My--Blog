@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{% endblock css %}
+
+{% block title %} Home {% endblock title %}
+
+{% block body %}
+<main>
+    <section class="bg-white home-bg min-h-[100vh] flex flex-col md:justify-between items-center px-2
+    sm:px-12 xl:px-32 lg:px-20 pt-24 sm:pt-12 sm:flex-row shadow-md pb-12 md:pb-0">
+        <section>
+            <div class="font-bold text-center sm:text-left">
+                <h2 class="text-xl"> Welcome to </h2>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl mt-2" style="color: #14213D;"> Creative Blue </h1>
+            </div>
+            <div class="mt-6 text-[14px] pr-0 md:pr-12 lg:pr-32 text-center sm:text-left">
+                <p> At Healthline, we set high standards of quality, research, and transparency for what we share, ensuring you have access to nothing but the best. Here's how Filter out the noise. </p>
+            </div>
+            <div class="mt-6 w-full sm:w-auto flex justify-center sm:justify-start">
+                <button type="button" class="bg-cyan-500 p-3 hover:bg-cyan-600 transition-all text-white rounded-md text-sm font-semibold" style="background-color: #14213D;"> BLOG </button>
+                <button type="button" class="ml-2 bg-cyan-500 p-3 hover:bg-cyan-600 transition-all text-white rounded-md text-sm font-semibold" style="background-color: #14213D;"> ABOUT </button>
+            </div>
+        </section>
+    
+        <section class="bg-white w-full md:w-auto border rounded-md mt-12 md:mt-0">
+            <div class="w-full md:w-[18rem] lg:w-[22rem] xl:w-[25rem]">
+                {% load static %}
+                <img src="{% static 'Images/geomatric-creative.png' %}" alt="">
+                <div class="p-4">
+                    <h1 class="text-xl font-semibold"> Are You Burned Out? How to Recognize and Cope With It </h1>
+                    <p class="text-sm mt-3"> A new book explores a new approach to diagnosing and coping with burnout. </p>    
+                </div>
+                </div>
+        </section>
+    </section>
+
+    <section class="bg-white min-h-[95vh] px-2 sm:px-6 xl:px-32 lg:px-12 pt-16">
+        <h1 class="text-2xl font-bold h-34"> RANDOM BLOG POSTS </h1> <hr class="mt-4">
+        <div class="grid py-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+            {% if post1 != none %}
+            <div class="mt-2 w-full border bg-white rounded-md">
+                <img src="/media/{{post1.post_thumbnail}}/" class="w-full">
+                <div class="p-4"> 
+                    <h2 class="text-xl font-semibold"> {{post1.post_title}} </h2>
+                    <p class="my-4 text-xs">
+                    <span class="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-1 rounded-full"> {{post1.post_tag}} </span>
+                    {{post1.timestamp}} </p>
+                    <button class="mt-4 px-2 py-1.5 text-white rounded-sm text-sm" style="background-color: #14213D"
+                    onclick="window.location = '/blog/post/{{post1.post_id}}'"> Read more </button>
+                </div>
+            </div> 
+            {% endif %}
+            
+            {% if post2 != none %}
+            <div class="mt-2 w-full border bg-white rounded-md">
+                <img src="/media/{{post2.post_thumbnail}}/" class="w-full">
+                <div class="p-4"> 
+                    <h2 class="text-xl font-semibold"> {{post2.post_title}} </h2>
+                    <p class="my-4 text-xs">
+                    <span class="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-1 rounded-full"> {{post2.post_tag}} </span>
+                    {{post2.timestamp}} </p>    
+                    <button class="bg-cyan-500 mt-4 px-2 py-1.5 text-white rounded-sm text-sm" style="background-color: #14213D"
+                    onclick="window.location = '/blog/post/{{post2.post_id}}'"> Read more </button>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if post3 != none %}
+            <div class="mt-2 w-full border bg-white rounded-md">
+                <img src="/media/{{post3.post_thumbnail}}/" class="w-full">
+                <div class="p-4"> 
+                    <h2 class="text-xl font-semibold"> {{post3.post_title}} </h2>
+                    <p class="my-4 text-xs">
+                    <span class="bg-gray-100 text-gray-800 text-xs font-medium mr-2 px-2.5 py-1 rounded-full"> {{post3.post_tag}} </span>
+                    {{post3.timestamp}} </p>    
+                    <button class="bg-cyan-500 mt-4 px-2 py-1.5 text-white rounded-sm text-sm" style="background-color: #14213D"
+                    onclick="window.location = '/blog/post/{{post3.post_id}}'"> Read more </button>                
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+</main>
+{% endblock body %}
+
+{% block js %}
+{% endblock js %}

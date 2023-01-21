@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'Styles/base.css' %}">
+
+    {% block css %} {% endblock css %}
+
+    <title> Creative Blue - {% block title %} {% endblock title %} </title>
+</head>
+<body style="font-family: 'Roboto', sans-serif;">
+    <header class="fixed w-full z-10" id="header">
+        <nav class="flex justify-between items-center px-4 py-2 sm:py-3 w-full" style="background-color: #000000;">
+          <div class="text-lg sm:text-xl font-bold cursor-pointer" onclick="window.location = '/'">
+              <span class="text-white"> Creative </span>
+              <span class="text-cyan-400" style="color: #FCA311;"> Blue </span>
+          </div>
+          <div class="mr-4">
+              <ul class="hidden sm:flex justify-center items-center">
+                  <li class="px-3"> <a href="/" style="color: #FFFFFF;" onmouseout="this.style.color = '#FFFFFF'" onmouseover="this.style.color = '#FCA311'"> Home </a> </li>
+                  <li class="px-3"> <a href="/blog" style="color: #FFFFFF;" onmouseout="this.style.color = '#FFFFFF'" onmouseover="this.style.color = '#FCA311'" id="blog-link"> Blog </a> </li>
+                  <li class="px-3"> <a href="/about" style="color: #FFFFFF;" onmouseout="this.style.color = '#FFFFFF'" onmouseover="this.style.color = '#FCA311'" > About </a> </li>
+                  <li class="px-3"> <button class="transition-all text-white py-1.5 px-2 rounded-md" style="background-color: #14213D"
+                  onmouseout="this.style.backgroundColor = '#14213D'" onmouseover="this.style.backgroundColor = '#FCA311'"> <a href="#footer"> SUBSCRIBE </a> </button> </li>
+              </ul>
+          </div>
+          <div class="hidden mt-4 space-x-4 sm:justify-center sm:mt-0 md:flex">
+            <a href="#" class="text-gray-200 hover:text-gray-300">
+              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
+                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+              </svg>
+            </a>
+            <a href="#" class="ml-3 text-gray-200 hover:text-gray-300">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+              </svg>
+            </a>
+          </div>
+          <button id="responsive-nav-btn" class="text-gray-200 border p-1 sm:p-1.5 rounded-sm block sm:hidden">
+            <svg class="w-4 h-4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
+          </button>
+        </nav>
+        <nav class="px-2 transition-all" style="height: 0; overflow: hidden; background-color: #14213D;" id="responsive-nav">
+          <ul>
+            <li class="bg-gray-800 text-center py-2.5 text-sm"> <a href="/" class="text-gray-200"> Home </a> </li> <hr class="h-px bg-gray-400 border-0">
+            <li class="bg-gray-800 text-center py-2.5 text-sm"> <a href="/blog" class="text-gray-200"> Blog </a> </li> <hr class="h-px bg-gray-400 border-0">
+            <li class="bg-gray-800 text-center py-2.5 text-sm"> <a href="/about" class="text-gray-200"> About </a> </li>
+          </ul>
+        </nav>
+
+        <div class="p-4 w-full transition-all shadow-md" id="blog-box" style="background-color: #FFFFFF; display: none; opacity: 0;">
+          <div class="flex px-8 justify-between items-center w-full">
+            <h1 class="text-xl font-bold h-34"> RANDOM BLOG POSTS </h1>
+          </div> <hr class="mt-2 px-12">
+          <div class="grid grid-cols-2 md:grid-cols-3">
+            {% for i in topRated %}
+            <div class="px-8 cursor-pointer flex justify-center items-center flex-col sm:flex-row " onclick="window.location = '/blog/post/{{i.post_id}}'">
+              <img src="/media/{{i.post_thumbnail}}/" class="mt-4 rounded-sm w-32 max-h-24 transition-all hover:opacity-70">
+              <div class="ml-0 sm:ml-4">
+                  <h1 class="mt-4 font-semibold" onmouseover="this.style.color = '#14213D'" onmouseout="this.style.color = '#000000'"> {{i.post_title}} </h1>
+              </div>
+            </div>    
+            {% endfor %}  
+          </div>      
+        </div>
+
+    </header>
+    
+    <div class="p-2 transition-all fixed bottom-2 right-0" style="display: none; background-color: #14213D" id="up-arrow">
+      <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/></svg>
+    </div>
+
+    {% block body %}
+    {% endblock body %}
+
+    <footer class="text-gray-600 body-font" style="background-color: #000000;" id="footer">
+      <div class="container px-5 py-16 mx-auto">
+        <div class="flex flex-wrap md:text-left text-center order-first">
+          <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+            <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3" style="color: #FCA311;">CATEGORIES</h2>
+            <nav class="list-none mb-10">
+              <li>
+                <a class="text-sm text-white hover:text-gray-300 cursor-pointer">First Link</a>
+              </li>
+              <li>
+                <a class="text-sm text-white hover:text-gray-300 cursor-pointer">Second Link</a>
+              </li>
+              <li>
+                <a class="text-sm text-white hover:text-gray-300 cursor-pointer">Third Link</a>
+              </li>
+              <li>
+                <a class="text-sm text-white hover:text-gray-300 cursor-pointer">Fourth Link</a>
+              </li>
+            </nav>
+          </div>
+          <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+            <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3" style="color: #FCA311;">CATEGORIES</h2>
+            <nav class="list-none mb-10">
+              <li>
+                <a class="text-sm text-white hover:text-gray-300 cursor-pointer">First Link</a>
+              </li>
+              <li>
+                <a class="text-sm text-white hover:text-gray-300 cursor-pointer">Second Link</a>
+              </li>
+              <li>
+                <a class="text-sm text-white hover:text-gray-300 cursor-pointer">Third Link</a>
+              </li>
+              <li>
+                <a class="text-sm text-white hover:text-gray-300 cursor-pointer">Fourth Link</a>
+              </li>
+            </nav>
+          </div>
+          <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+            <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3" style="color: #FCA311;">SUBSCRIBE</h2>
+            <div class="flex xl:flex-nowrap md:flex-nowrap lg:flex-wrap flex-wrap justify-center items-end md:justify-start">
+              <form action="#" method="POST" id="subscribe-form">
+                {% csrf_token %}
+                <div class="relative w-40 sm:w-auto xl:mr-4 lg:mr-0 sm:mr-4 mr-2">
+                  <label for="footer-field" class="leading-7 text-sm text-white"> Enter your email </label>
+                  <input type="email" name="email" minlength="13" maxlength="29" placeholder="Enter your email" class="w-56 bg-opacity-50 rounded border border-gray-300 focus:bg-transparent text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" style="background-color: #FFFFFF;">
+                </div> <br>
+                <button type="submit" id="submit-btn" class="xl:mt-0 flex-shrink-0 inline-flex text-white border-0 py-2 px-6 focus:outline-none rounded" style="background-color: #14213D" onmouseout="this.style.backgroundColor = '#14213D'" onmouseover="this.style.backgroundColor = '#FCA311'"> SUBSCRIBE </button>
+              </form>
+            </div>
+            <p class="text-sm mt-2 md:text-left text-center text-white">Bitters chicharrones fanny pack
+              <br class="lg:block hidden">waistcoat green juice
+            </p>
+          </div>
+        </div>
+      </div>
+      <div style="background-color: #14213D;">
+        <div class="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
+          <p class="text-cyan-400 text-sm text-center sm:text-left" style="color: #FCA311;"> © 2023 — Creative Blue
+            <p class="text-gray-300 ml-2 text-sm text-center"> Copyright 2023 - 2024 </p>
+          </p>
+          <span class="inline-flex sm:ml-auto sm:mt-0 mt-6 justify-center sm:justify-start">
+            <a href="#" class="text-gray-200 hover:text-gray-300">
+              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+              </svg>
+            </a>
+            <a href="#" class="ml-3 text-gray-200 hover:text-gray-300">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+              </svg>
+            </a>
+          </span>
+        </div>
+      </div>
+    </footer>
+</body>
+
+<script>
+    const blogLink = document.getElementById("blog-link");
+    const blogBox = document.getElementById("blog-box");
+    const header = document.getElementById("header");
+
+    blogLink.addEventListener("mouseover", () => {
+      blogBox.style.display = "block";
+      blogBox.style.opacity = "1";
+    })
+
+    header.addEventListener("mouseleave", () => {
+      blogBox.style.display = "none";
+      blogBox.style.opacity = "0";
+    })
+
+    const responsiveNav = document.querySelector("#responsive-nav");
+    const responsiveBtn = document.querySelector("#responsive-nav-btn");
+
+    responsiveBtn.addEventListener("click", () => {
+        let navStyle = getComputedStyle(responsiveNav).getPropertyValue("height");
+        if (navStyle == "0px") {
+            responsiveNav.style.transitionDuration = "300ms"
+            responsiveNav.style.height = "124px";
+              
+        } else {
+            responsiveNav.style.height = "0px";
+        }
+    })
+
+    const arrowUp = document.getElementById("up-arrow");
+    window.addEventListener("scroll", () => {
+        if (window.scrollY < 200 && arrowUp.style.display == "none") {
+            arrowUp.style.display = "block";
+        }
+    })
+
+    arrowUp.addEventListener("click", () => {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    })
+</script>
+
+{% load static %}
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+  crossorigin="anonymous"></script>
+<script src="{% static 'Javascript/subscribe.js' %}"></script>
+
+{% block js %} 
+{% endblock js %}
+</html>
